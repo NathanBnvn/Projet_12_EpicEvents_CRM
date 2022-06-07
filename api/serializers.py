@@ -1,26 +1,24 @@
 from rest_framework import serializers
-from .models import SalesTeam, SupportTeam, GestionTeam, Client, Contract, Event
-
-
-class SalesTeamSerializer(serializers.ModelSerializer):
-    pass
-
-
-class SupportTeamSerializer(serializers.ModelSerializer):
-    pass
-
-
-class GestionTeamSerializer(serializers.ModelSerializer):
-    pass
+from django.contrib.auth.models import User
+from .models import Client, Contract, Event
 
 
 class ClientSerializer(serializers.ModelSerializer):
-    pass
+    
+    class Meta:
+        model = Client
+        fields = "__all__"
 
 
 class ContractSerializer(serializers.ModelSerializer):
-    pass
+    
+    class Meta:
+        model = Contract
+        fields = "__all__"
 
 
 class EventSerializer(serializers.ModelSerializer):
-    pass
+    
+    class Meta:
+        model = Event
+        fields = "__all__"

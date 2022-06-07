@@ -21,6 +21,7 @@ urlpatterns = [
     path('', include('api.urls')),
 ]
 
+
 # Personalize admin interface
 
 admin.site.site_header = "Epic Events CRM"

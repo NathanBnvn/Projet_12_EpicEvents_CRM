@@ -92,4 +92,6 @@ local_settings.py
 
 .env
 
+django.db.backends.postgresql
+
 db.sqlite3

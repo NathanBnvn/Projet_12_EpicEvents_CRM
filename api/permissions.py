@@ -1,42 +1,30 @@
+from datetime import datetime
+from .models import Event
 from rest_framework import permissions
+from django.contrib.auth.models import Group
 
 
-class IsGestionTeam(permissions.BasePermission):
-    # CRUD operation on CRM system users.
-    # Retreive and update all CRM system.
+class IsSupportTeam(permissions.BasePermission):
+    # Retreive and update data related to attributed events
+    # Update event until it's over
 
-    def has_permission(self, request, view):
-        if request.user.is_authenticated:
-            return True
-
-    def has_object_permission(self, request, view):
-        pass
-
-
-class IsSalesTeam(permissions.BasePermission):
-    # Add new clients, update client data
-    # Create contract and change the contract status
-    # Create a new event for the contract
+    editing_methods = ("PUT", "PATCH", "DEL")
 
     def has_permission(self, request, view):
         if request.user.is_authenticated:
             return True
         
-        if view.basename == 'client' | view.basename == 'contract' | view.basename == 'event':
-            return True
+        support_team = Group.objects.get(name="Support").user_set.all()
+        if request.user in support_team :
+            if view.basename == 'client' | view.basename == 'contract' | view.basename == 'event':
+                return True
     
     def has_object_permission(self, request, view):
-        pass
 
-
-class IsSupportTeam(permissions.BasePermission):
-    # Retreive and update data related to attributed events
-    # Retreive data related to client to attributed events
-    # Update event until it's over
-
-    def has_permission(self, request, view):
-        if request.user.is_authenticated:
-            return True
-    
-    def has_object_permission(self, request, view):
-        pass
+        # Retreive data related to client to attributed events
+        if request.methods in self.editing_methods:
+            if request.user == Event.objects.support_contact:
+                return True
+            
+            if Event.objects.date <= datetime.now():
+                return True
