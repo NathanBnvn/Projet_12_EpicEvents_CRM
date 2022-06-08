@@ -13,13 +13,16 @@ from django.contrib.auth.models import User
 class Client(models.Model):
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
-    email = models.EmailField(max_length=50)
-    phone = models.CharField(max_length=20)
-    mobile = models.CharField(max_length=20)
+    email = models.EmailField(max_length=50, blank=True, null=True)
+    phone = models.CharField(max_length=20, blank=True, null=True)
+    mobile = models.CharField(max_length=20, blank=True, null=True)
     company_name = models.CharField(max_length=400)
     sales_contact = models.ForeignKey(User, blank=True, null=True, on_delete=models.CASCADE, related_name='client')
     created_at = models.DateTimeField(auto_now_add=True)
     update_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.company_name
 
 
 class Contract(models.Model):
@@ -46,10 +49,10 @@ class Event(models.Model):
 	]
 
     client = models.ForeignKey(Client, blank=True, null=True, on_delete=models.CASCADE, related_name='event')
-    attendees = models.IntegerField()
+    attendees = models.IntegerField(blank=True, null=True)
     status = models.CharField(max_length=20, null=True, choices=STATUS_EVENT)
     support_contact = models.ForeignKey(User, blank=True, null=True, on_delete=models.CASCADE, related_name='event')
     date = models.DateTimeField(null=True)
-    notes = models.CharField(max_length=7000)
+    notes = models.CharField(max_length=7000, blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     update_at = models.DateTimeField(auto_now=True)

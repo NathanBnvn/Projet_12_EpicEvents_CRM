@@ -4,7 +4,6 @@ from rest_framework_nested import routers
 from .views import ClientViewSet, ContractViewSet, EventViewSet
 
 
-
 router = routers.DefaultRouter()
 router.register(r'client', ClientViewSet, basename='client')
 

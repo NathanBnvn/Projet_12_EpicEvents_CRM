@@ -7,7 +7,7 @@ from api.models import Client, Contract, Event
 
 @admin.register(Client)
 class ClientAdmin(admin.ModelAdmin):
-    list_display = ('first_name', 'last_name', 'company_name')
+    list_display = ('company_name', 'first_name', 'last_name')
 
 
 @admin.register(Contract)

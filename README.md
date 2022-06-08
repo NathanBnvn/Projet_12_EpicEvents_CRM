@@ -67,5 +67,8 @@ $ python manage.py runserver
 
 to access the API or CRM content go to the generated url then to the admin section endpoint and fill in your credentials
 
+```sh
 
-### -- The project is not yet finish so I will advise to wait before download it --
+localhost:3000/admin
+
+```
