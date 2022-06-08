@@ -28,7 +28,7 @@ class IsSaleTeam(permissions.BasePermission):
             return True
 
         if view.basename == 'event':
-            if request.methods == 'POST' or request.methods in permissions.SAFE_METHODS:
+            if request.method == 'POST' or request.method in permissions.SAFE_METHODS:
                 return True
 
 
