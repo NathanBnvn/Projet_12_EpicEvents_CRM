@@ -1,6 +1,6 @@
 # Epic Events CRM
 
-![made-with-django-rest](https://user-images.githubusercontent.com/45998296/166694632-eee84900-3ef4-4adc-bbf3-6cc2ef16ac7f.svg) ![use-django-admin](https://user-images.githubusercontent.com/45998296/166691519-839a7d13-833f-46e6-a33a-d053e6b04bd8.svg) ![use-postgresql](https://user-images.githubusercontent.com/45998296/166709231-905140e5-a6f6-4e62-8255-9b6f5a7fe6c5.svg)
+![made-with-django-rest](https://user-images.githubusercontent.com/45998296/166694632-eee84900-3ef4-4adc-bbf3-6cc2ef16ac7f.svg) ![use-django-admin](https://user-images.githubusercontent.com/45998296/166691519-839a7d13-833f-46e6-a33a-d053e6b04bd8.svg) ![use-postgresql](https://user-images.githubusercontent.com/45998296/166709231-905140e5-a6f6-4e62-8255-9b6f5a7fe6c5.svg) ![use-jwt](../../../Downloads/use-json-web-token.svg)
 
 ![openclassrooms-project](https://user-images.githubusercontent.com/45998296/166692502-a22abdc0-e774-4ec6-8d7c-f86cb6e55825.svg)
 
@@ -65,10 +65,18 @@ $ python manage.py runserver
 
 ## Usage
 
-to access the API or CRM content go to the generated url then to the admin section endpoint and fill in your credentials
+to access CRM content go to the generated url then to the admin section endpoint and fill in your credentials
 
 ```sh
 
 localhost:3000/admin
+
+```
+
+to access the API content go to the generated url then to the admin section endpoint and fill in your credentials
+
+```sh
+
+localhost:3000/api/login
 
 ```

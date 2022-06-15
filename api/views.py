@@ -4,12 +4,17 @@ from django.shortcuts import render
 from django.contrib.auth import authenticate
 from django.contrib.auth.models import Group
 from django.contrib.auth.decorators import login_required
+from rest_framework.permissions import AllowAny
+from rest_framework_simplejwt.views import TokenObtainPairView
 from api.permissions import IsSupportTeam, IsManagementTeam, IsSaleTeam
-from api.serializers import ClientSerializer, ContractSerializer, EventSerializer
+from api.serializers import LoginSerializer, ClientSerializer, ContractSerializer, EventSerializer
 from api.models import Client, Contract, Event
 from rest_framework import viewsets
 
 
+class LoginView(TokenObtainPairView):
+	serializer_class = LoginSerializer
+	permission_classes = (AllowAny,)
 
 class ClientViewSet(viewsets.ModelViewSet):
     serializer_class = ClientSerializer
@@ -32,19 +37,6 @@ class ClientViewSet(viewsets.ModelViewSet):
 class ContractViewSet(viewsets.ModelViewSet):
     serializer_class = ContractSerializer
     
-    # def dispatch(self, request, *args, **kwargs):
-    #     parent_view = ClientViewSet.as_view({"get": "retrieve"})
-    #     original_method = request.method
-    #     request.method = "GET"
-    #     parent_kwargs = {"pk": kwargs["client_pk"]}
-        
-    #     parent_response = parent_view(request, *args, **parent_kwargs)
-    #     if parent_response.exception:
-    #         return parent_response
-        
-    #     request.method = original_method
-    #     return super().dispatch(request, *args, **kwargs)
-
     def get_queryset(self):
         return Contract.objects.filter(client=self.kwargs['client_pk'])
 
@@ -64,19 +56,6 @@ class ContractViewSet(viewsets.ModelViewSet):
 
 class EventViewSet(viewsets.ModelViewSet):
     serializer_class = EventSerializer
-
-    # def dispatch(self, request, *args, **kwargs):
-    #     parent_view = ClientViewSet.as_view({"get": "retrieve"})
-    #     original_method = request.method
-    #     request.method = "GET"
-    #     parent_kwargs = {"pk": kwargs["client_pk"]}
-        
-    #     parent_response = parent_view(request, *args, **parent_kwargs)
-    #     if parent_response.exception:
-    #         return parent_response
-        
-    #     request.method = original_method
-    #     return super().dispatch(request, *args, **kwargs)
 
     def get_queryset(self):
         return Event.objects.filter(client=self.kwargs['client_pk'])

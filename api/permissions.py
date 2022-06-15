@@ -1,4 +1,5 @@
 from datetime import datetime
+from http import client
 from .models import Event
 from rest_framework import permissions
 from django.contrib.auth.models import Group
@@ -44,19 +45,22 @@ class IsSupportTeam(permissions.BasePermission):
         pass
 
         editing_methods = ("PUT", "PATCH", "DEL")
+        event = Event.objects.get(support_contact=request.user)
 
-        # Retreive data related to client to attributed events
         if view.basename == 'event':
             if request.user == obj.support_contact:
                 return True
             
             if obj.date <= datetime.now() and request.methods in editing_methods :
                 return True
-
+        
+        # Retreive data related to client to attributed events
         if view.basename == 'client':
-            if request.method in permissions.SAFE_METHODS:
-                return True
+            if obj.pk == event.client.id:
+                if request.method in permissions.SAFE_METHODS:
+                    return True
 
         if view.basename == 'contract':
-            if request.method in permissions.SAFE_METHODS:
-                return True
+            if obj.client == event.client.id:
+                if request.method in permissions.SAFE_METHODS:
+                    return True
